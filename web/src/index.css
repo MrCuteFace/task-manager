@@ -1,0 +1,673 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/noto-sans-hebrew/wdth.css';
+
+/*
+  The Work Roster (סידור עבודה): a ruled sheet of paper, blue-black ink, blue feint rules,
+  a red margin line, marks for status. Tokens are the only place colors are defined.
+*/
+@theme {
+  --font-sans: 'Noto Sans Hebrew Variable', 'Segoe UI', Arial, sans-serif;
+
+  /* paper */
+  --color-paper: #fcfcfa;
+  --color-paper-2: #f4f3ee;
+  --color-paper-3: #eae9e3;
+  --color-rule: #d8dfe9;
+  --color-rule-strong: #b6c2d3;
+  --color-margin: #d9534f;
+
+  /* ink */
+  --color-ink: #1e2a44;
+  --color-ink-2: #4a5568;
+  --color-pencil: #646b7a;
+
+  /* the one accent: stamp blue, on actions and selection only */
+  --color-accent: #2c4fb5;
+  --color-accent-strong: #223f96;
+  --color-accent-soft: #e4eaf8;
+
+  /* status law: these four appear on status marks and charts, nowhere else */
+  --color-todo: #6b7280;
+  --color-todo-soft: #eef0f3;
+  --color-progress: #f2c14e;
+  --color-progress-ink: #6f4a00;
+  --color-progress-chart: #d68f00;
+  --color-done: #2a7048;
+  --color-done-soft: #e1efe6;
+  --color-stuck: #b53325;
+  --color-stuck-soft: #f9e4e1;
+
+  /*
+    The wordmark's ink. Brand navy on paper; on a dark sheet that navy is all but invisible, so the
+    dark palette lifts it. It is the mark's color, not a UI color, and is used only on the wordmark.
+  */
+  --color-brand-wordmark: #1e2a44;
+
+  /*
+    The ground behind the sheets, as two tokens: an optional photograph, and how hard the paper wash
+    sits on top of it. The production build stands on aerial photos of the real site; this public
+    demo ships without them, so the ground is plain desk paper.
+  */
+  --site-photo: none;
+  --site-wash: color-mix(in oklab, var(--color-paper-3) 84%, transparent);
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --shadow-sheet: 0 1px 2px rgb(30 42 68 / 0.05), 0 12px 28px -16px rgb(30 42 68 / 0.22);
+  --shadow-popover: 0 2px 4px rgb(30 42 68 / 0.06), 0 16px 32px -12px rgb(30 42 68 / 0.28);
+}
+
+/*
+  The roster after dark: the same sheet read under a desk lamp, not a different product. Paper
+  becomes slate, ink becomes light, and the accent and the four status colors are lifted just enough
+  to hold their contrast against a dark sheet - the status law and the one-accent rule are unchanged,
+  only their values are. Nothing here adds a token; every name below already exists above.
+
+  Themes are redefined tokens, never a second set of utility classes, so no component knows the
+  theme exists. `[data-theme]` is written by the theme store (context/theme.ts) and, before first
+  paint, by the inline script in index.html.
+*/
+@layer theme {
+  :root[data-theme='dark'] {
+    /* paper becomes slate */
+    --color-paper: #1b2130;
+    --color-paper-2: #161b27;
+    --color-paper-3: #10141d;
+    --color-rule: #2a3245;
+    --color-rule-strong: #3c4760;
+    --color-margin: #c8574f;
+
+    /* ink becomes light */
+    --color-ink: #e7edf6;
+    --color-ink-2: #aab7ca;
+    --color-pencil: #7f8a9d;
+
+    /* the one accent, lifted to carry on a dark sheet */
+    --color-accent: #6089ec;
+    --color-accent-strong: #7ba0f4;
+    --color-accent-soft: #21314f;
+
+    /* status law: same four meanings, dark-sheet values */
+    --color-todo: #8c97a7;
+    --color-todo-soft: #222a39;
+    --color-progress: #f0bf4f;
+    --color-progress-ink: #3b2800;
+    --color-progress-chart: #e2a521;
+    --color-done: #4fa87a;
+    --color-done-soft: #183227;
+    --color-stuck: #e06d5f;
+    --color-stuck-soft: #38201d;
+
+    /* the mark's wordmark, lifted off the dark sheet */
+    --color-brand-wordmark: #97a6f5;
+
+    /*
+      The photographs are daylight images. At the light theme's wash one reads as texture behind the
+      sheets; at that same wash on a dark ground it reads as a bright photo behind dark sheets, which
+      is worse than no photograph at all. Dark washes harder, so the site reads as night.
+    */
+    --site-wash: color-mix(in oklab, var(--color-paper-3) 93%, transparent);
+
+    /* shadow on a dark ground is depth, not a grey smudge */
+    --shadow-sheet: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 32px -16px rgb(0 0 0 / 0.66);
+    --shadow-popover: 0 2px 6px rgb(0 0 0 / 0.45), 0 18px 38px -12px rgb(0 0 0 / 0.72);
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-paper-3);
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-rule-strong) transparent;
+  }
+
+  body {
+    min-height: 100dvh;
+    margin: 0;
+    /* The site behind the sheets: a photograph washed with paper so the ink stays legible. */
+    background-color: var(--color-paper-3);
+    background-image: linear-gradient(var(--site-wash), var(--site-wash)), var(--site-photo);
+    background-size: cover;
+    background-position: center 40%;
+    background-attachment: fixed;
+  }
+
+  /*
+    The login screen replaces the photographed ground with the drawn container yard (ContainerYard,
+    three.js + GSAP). No photograph here: the yard canvas is the ground, so the body is plain desk.
+  */
+  body:has(main[data-surface='login']) {
+    background-image: none;
+    background-color: var(--color-paper-3);
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  input,
+  textarea {
+    caret-color: var(--color-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  /*
+    The drawn container yard behind the login sheets. It is the ground, so it sits under everything
+    and takes no pointer events. The wash above it is the same device the photographed ground used:
+    paper at 58%, which is what keeps the stamped title and the pencil meta text legible over it.
+  */
+  .yard-ground {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /*
+    A flat wash would either bury the yard or let it fight the form. This one is heaviest in the
+    middle, where the sheets and their text sit, and thins toward the edges so the containers that
+    run past the sheets stay readable as a yard.
+  */
+  .yard-ground::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 78% 72% at 50% 52%,
+      color-mix(in oklab, var(--color-paper-3) 72%, transparent) 0%,
+      color-mix(in oklab, var(--color-paper-3) 62%, transparent) 45%,
+      color-mix(in oklab, var(--color-paper-3) 34%, transparent) 100%
+    );
+  }
+
+  /* The document reference in the login title block: quiet, monospaced, like a form number. */
+  .docket-ref {
+    font-family: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    color: var(--color-pencil);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.5rem;
+  }
+
+  /*
+    A rubber stamp on the docket. Ink and pencil only - a decorative mark may not borrow the accent
+    (that means "act here") or the margin red (that is structural). Hidden below lg, where the
+    stamped title already fills the column and the stamp would collide with it.
+  */
+  .docket-stamp {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .docket-stamp {
+      position: absolute;
+      /* Inline-end is the left edge in RTL: the foot of the form, clear of the title and the button. */
+      inset-inline-end: 2.25rem;
+      bottom: 2.25rem;
+      display: block;
+      rotate: -9deg;
+      border: 2px solid color-mix(in oklab, var(--color-pencil) 45%, transparent);
+      border-radius: var(--radius-sm);
+      padding: 0.2rem 0.7rem;
+      color: color-mix(in oklab, var(--color-pencil) 62%, transparent);
+      font-stretch: 75%;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      letter-spacing: 0.12em;
+      pointer-events: none;
+    }
+  }
+
+  /* Stamped headers: the condensed bold voice of the roster. */
+  .stamp {
+    font-stretch: 75%;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+  }
+
+  /* A sheet of paper with its red margin line on the right (inline-start in RTL). */
+  .sheet {
+    position: relative;
+    background: var(--color-paper);
+    box-shadow: var(--shadow-sheet);
+    border-radius: var(--radius-md);
+  }
+
+  .sheet-margin::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 2rem;
+    width: 1.5px;
+    background: color-mix(in oklab, var(--color-margin) 85%, transparent);
+    pointer-events: none;
+  }
+
+  @media (min-width: 48rem) {
+    .sheet-margin::before {
+      inset-inline-start: 3.25rem;
+    }
+  }
+
+  /* Narrow margin for the small sheets (Kanban columns). */
+  .sheet-margin-narrow::before {
+    inset-inline-start: 1.75rem;
+  }
+
+  @media (min-width: 48rem) {
+    .sheet-margin-narrow::before {
+      inset-inline-start: 1.75rem;
+    }
+  }
+
+  /* Feint ruling continues into the empty part of the sheet. */
+  .ruled-tail {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(2.5rem - 1px),
+      var(--color-rule) calc(2.5rem - 1px),
+      var(--color-rule) 2.5rem
+    );
+  }
+
+  /* Ruled lines between rows, drawn once per row, faint. */
+  .ruled > * + * {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .pressable {
+    /* filter and opacity carry the MondayTry-style hovers: a mark lifting, a row's open button surfacing. */
+    transition: transform 120ms var(--ease-out-strong), scale 150ms var(--ease-out-strong),
+      translate 180ms var(--ease-out-strong), box-shadow 180ms ease, background-color 140ms ease, color 140ms ease,
+      border-color 140ms ease, filter 140ms ease, opacity 140ms ease;
+  }
+
+  .pressable:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  /* Status marks: four different marks on paper, never one chip in four colors. */
+  .status-mark {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    height: 1.625rem;
+    padding-inline: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--color-ink);
+    border-radius: var(--radius-sm);
+  }
+
+  .status-mark > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /*
+    A status a board invented for itself. The four built-in marks are specific drawings - a
+    highlighter stroke, an ink tick, a pencil ellipse - and cannot be generated for an arbitrary
+    color, so a custom status gets the honest equivalent instead: the same height and rhythm, inked
+    in its own color over a wash of it. `--mark` is set inline from the chosen hex.
+
+    `color-mix` keeps it legible in both themes: the wash is the color thinned into the sheet, and
+    the text is the color pushed toward the ink so a pale choice still reads on paper.
+  */
+  .status-mark-custom {
+    color: color-mix(in oklab, var(--mark) 72%, var(--color-ink));
+    background: color-mix(in oklab, var(--mark) 16%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--mark) 42%, transparent);
+  }
+
+  :root[data-theme='dark'] .status-mark-custom {
+    color: color-mix(in oklab, var(--mark) 62%, var(--color-ink));
+    background: color-mix(in oklab, var(--mark) 24%, transparent);
+  }
+
+  /*
+    A priority a board invented for itself. The built-in levels are ink weight and an icon and carry
+    no color at all - that is the system's rule. A custom priority is the one exception, and it is a
+    deliberate one: the name is inked in its own color so the board's own vocabulary is legible at a
+    glance. The icon still comes from the level, so the arrow keeps saying how urgent it is.
+  */
+  .priority-mark-custom {
+    font-weight: 600;
+    color: color-mix(in oklab, var(--mark) 74%, var(--color-ink));
+  }
+
+  :root[data-theme='dark'] .priority-mark-custom {
+    color: color-mix(in oklab, var(--mark) 58%, var(--color-ink));
+  }
+
+  /* לביצוע: an empty ruled box beside quiet ink. */
+  .status-mark[data-status='Todo'] {
+    color: var(--color-ink-2);
+  }
+
+  /* בתהליך: a highlighter stroke that overshoots the word. */
+  .status-mark[data-status='InProgress']::before {
+    content: '';
+    position: absolute;
+    inset: 3px -3px;
+    z-index: 0;
+    background: var(--color-progress);
+    border-radius: 3px 6px 4px 5px;
+    transform: skewX(-8deg) rotate(-1deg);
+    transform-origin: right center;
+  }
+
+  .status-mark[data-status='InProgress'] > svg {
+    color: var(--color-progress-ink);
+  }
+
+  /* הושלם: a green ink tick, the word struck through. */
+  .status-mark[data-status='Done'] {
+    color: var(--color-ink-2);
+  }
+
+  .status-mark[data-status='Done'] > span {
+    text-decoration: line-through;
+    text-decoration-color: var(--color-done);
+    text-decoration-thickness: 1.5px;
+  }
+
+  .status-mark[data-status='Done'] > svg {
+    color: var(--color-done);
+  }
+
+  /* תקוע: a red pencil ellipse drawn around the word. */
+  .status-mark[data-status='Stuck'] > svg {
+    color: var(--color-stuck);
+  }
+
+  .status-mark[data-status='Stuck']::before {
+    content: '';
+    position: absolute;
+    inset: -2px -5px;
+    z-index: 0;
+    border: 1.5px solid var(--color-stuck);
+    border-radius: 50% 45% 50% 48% / 60% 55% 60% 50%;
+    transform: rotate(-2.5deg);
+  }
+
+  /* The one authored moment: a changed mark is drawn onto the paper. */
+  .status-mark.is-fresh {
+    animation: mark-in 260ms var(--ease-out-strong);
+  }
+
+  .status-mark.is-fresh[data-status='InProgress']::before {
+    animation: highlight-sweep 320ms var(--ease-out-strong);
+  }
+
+  .status-mark.is-fresh[data-status='Stuck']::before {
+    animation: pencil-circle 320ms var(--ease-out-strong);
+  }
+
+  @keyframes mark-in {
+    from {
+      transform: scale(0.94);
+      opacity: 0.35;
+    }
+  }
+
+  @keyframes highlight-sweep {
+    from {
+      transform: skewX(-8deg) rotate(-1deg) scaleX(0);
+    }
+  }
+
+  @keyframes pencil-circle {
+    from {
+      transform: rotate(-2.5deg) scale(0.9);
+      opacity: 0;
+    }
+  }
+
+  /* Skeleton: ruled lines with a faint ink wash. */
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-paper-2) 0%, var(--color-paper-3) 50%, var(--color-paper-2) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-wash 1.4s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes skeleton-wash {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Popovers and the side panel enter from an already-visible state. */
+  .popover-enter {
+    animation: popover-in 160ms var(--ease-out-strong);
+    transform-origin: var(--origin, top right);
+  }
+
+  @keyframes popover-in {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+
+  .panel-enter {
+    animation: panel-in 240ms var(--ease-out-strong);
+  }
+
+  @keyframes panel-in {
+    from {
+      transform: translateX(-24px);
+      opacity: 0;
+    }
+  }
+
+  /*
+    The nav drawer enters from the same edge the desktop rail lives on - the inline-start, which is
+    the right in this RTL app - so the two read as the same object at two sizes. `panel-in` slides
+    the other way and belongs to the item panel, which opens from the opposite edge.
+  */
+  .drawer-enter {
+    animation: drawer-in 240ms var(--ease-out-strong);
+  }
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(24px);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-mark.is-fresh,
+    .status-mark.is-fresh::before,
+    .popover-enter,
+    .panel-enter,
+    .drawer-enter,
+    .skeleton {
+      animation: none;
+    }
+
+    .pressable:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}
+
+/* ---- Motion layer: row entrances, page fades, bar growth ---------------- */
+@layer components {
+  /* Rows are written onto the sheet one after another when a board opens. */
+  .row-enter {
+    animation: row-in 260ms var(--ease-out-strong) both;
+    animation-delay: calc(min(var(--i, 0), 14) * 28ms);
+  }
+
+  @keyframes row-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+
+  /* A route change fades the sheet in from an almost-visible state. */
+  .page-enter {
+    animation: page-in 180ms var(--ease-out-strong) both;
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0.4;
+      transform: translateY(3px);
+    }
+  }
+
+  /* Dashboard bars grow from the baseline (the start edge in RTL). */
+  .bar-grow {
+    animation: bar-in 1400ms var(--ease-out-strong) both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+    transform-origin: right center;
+  }
+
+  @keyframes bar-in {
+    from {
+      transform: scaleX(0.04);
+    }
+  }
+
+  /*
+    A comment arriving on an open item - your own, or someone else's over the live stream. It is
+    written onto the sheet like a row, then the accent wash it arrives under drains away over a second
+    and a half, so an update that lands while you are reading elsewhere in the panel is still findable
+    when you look back. The wash is the selection tint, not a new color: nothing here earns one.
+  */
+  .update-arrive {
+    animation: update-in 240ms var(--ease-out-strong) both, update-wash 1600ms ease-out 240ms both;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes update-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+
+  /* Following a quote back to the comment it names: the same wash, nothing arriving. */
+  .update-flash {
+    animation: update-wash 1600ms ease-out both;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes update-wash {
+    from {
+      background-color: var(--color-accent-soft);
+      box-shadow: 0 0 0 4px var(--color-accent-soft);
+    }
+    to {
+      background-color: transparent;
+      box-shadow: 0 0 0 4px transparent;
+    }
+  }
+
+  /* Drag-to-reorder: the drop line and the row being carried. */
+  .drop-before {
+    box-shadow: inset 0 2px 0 0 var(--color-accent);
+  }
+
+  .drop-after {
+    box-shadow: inset 0 -2px 0 0 var(--color-accent);
+  }
+
+  .row-dragging {
+    opacity: 0.45;
+  }
+
+  /* A pinned photograph on the roster board. */
+  .pinned-photo {
+    position: relative;
+    background: var(--color-paper);
+    padding: 6px;
+    box-shadow: var(--shadow-sheet);
+    border-radius: var(--radius-sm);
+  }
+
+  .pinned-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1px;
+  }
+
+  .pinned-photo::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    inset-inline-start: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-margin);
+    box-shadow: 0 1px 2px rgb(30 42 68 / 0.35), inset 0 -2px 2px rgb(0 0 0 / 0.2);
+    transform: translateX(50%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row-enter,
+    .page-enter,
+    .bar-grow {
+      animation: none;
+    }
+
+    /* The wash stays: it says which comment is new, which is information, not decoration. */
+    .update-arrive {
+      animation: update-wash 1600ms ease-out both;
+    }
+  }
+}
+
+/* ---- Page turn: the strips of the turning page (features/boards/pageTurn.ts) ---------- */
+@layer components {
+  /* The strips are clones of the sheet; entrance animations must not replay inside them. */
+  .page-turn *,
+  .page-turn *::before,
+  .page-turn *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

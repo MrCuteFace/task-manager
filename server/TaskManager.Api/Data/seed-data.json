@@ -1,0 +1,925 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "fullName": "עמית רוזן",
+      "title": "מנכ\"ל",
+      "managerId": null,
+      "username": "amit",
+      "email": "amit@example.com",
+      "password": "demo123"
+    },
+    {
+      "id": "u2",
+      "fullName": "יוסי לוי",
+      "title": "מנהל משאבי אנוש",
+      "managerId": "u1",
+      "username": "yossi",
+      "email": "yossi@example.com",
+      "password": "demo123"
+    },
+    {
+      "id": "u3",
+      "fullName": "מאיה שגיא",
+      "title": "מנהלת צוות גיוס",
+      "managerId": "u2",
+      "username": "maya",
+      "email": "maya@example.com",
+      "password": "demo123"
+    },
+    {
+      "id": "u4",
+      "fullName": "אורי ברק",
+      "title": "מנהל שיווק",
+      "managerId": "u1",
+      "username": "uri",
+      "email": "uri@example.com",
+      "password": "demo123"
+    }
+  ],
+  "workspaces": [
+    {
+      "id": "w1",
+      "name": "הנהלה",
+      "color": "#1F4E79"
+    },
+    {
+      "id": "w2",
+      "name": "משאבי אנוש",
+      "color": "#2E7D5B"
+    },
+    {
+      "id": "w3",
+      "name": "שיווק",
+      "color": "#B4532A"
+    }
+  ],
+  "boards": [
+    {
+      "id": "b1",
+      "name": "גיוס עובדים - רבעון 3",
+      "description": "מעקב אחר משרות פתוחות, מועמדים וראיונות",
+      "workspaceId": "w2",
+      "ownerUserId": "u3"
+    },
+    {
+      "id": "b2",
+      "name": "קליטה ורווחת עובדים",
+      "description": "תהליכי קליטה, הדרכות ורווחה",
+      "workspaceId": "w2",
+      "ownerUserId": "u2"
+    },
+    {
+      "id": "b3",
+      "name": "יעדים אסטרטגיים 2026",
+      "description": "יעדי ההנהלה לשנת 2026 ומעקב רבעוני",
+      "workspaceId": "w1",
+      "ownerUserId": "u1"
+    },
+    {
+      "id": "b4",
+      "name": "קמפיין השקה - סתיו 2026",
+      "description": "תכנון וביצוע קמפיין ההשקה",
+      "workspaceId": "w3",
+      "ownerUserId": "u4"
+    },
+    {
+      "id": "b5",
+      "name": "אתר ותוכן דיגיטלי",
+      "description": "שדרוג האתר ולוח תכנים חודשי",
+      "workspaceId": "w3",
+      "ownerUserId": "u4"
+    }
+  ],
+  "groups": [
+    {
+      "id": "g1",
+      "boardId": "b1",
+      "name": "משרות פתוחות",
+      "color": "#2E7D5B",
+      "order": 0
+    },
+    {
+      "id": "g2",
+      "boardId": "b1",
+      "name": "בתהליך ראיונות",
+      "color": "#B98900",
+      "order": 1
+    },
+    {
+      "id": "g3",
+      "boardId": "b1",
+      "name": "נסגרו",
+      "color": "#6B7280",
+      "order": 2
+    },
+    {
+      "id": "g4",
+      "boardId": "b2",
+      "name": "קליטת עובדים חדשים",
+      "color": "#2E7D5B",
+      "order": 0
+    },
+    {
+      "id": "g5",
+      "boardId": "b2",
+      "name": "רווחה ואירועים",
+      "color": "#7C3AED",
+      "order": 1
+    },
+    {
+      "id": "g6",
+      "boardId": "b3",
+      "name": "רבעון 3",
+      "color": "#1F4E79",
+      "order": 0
+    },
+    {
+      "id": "g7",
+      "boardId": "b3",
+      "name": "רבעון 4",
+      "color": "#2563EB",
+      "order": 1
+    },
+    {
+      "id": "g8",
+      "boardId": "b3",
+      "name": "לאורך השנה",
+      "color": "#6B7280",
+      "order": 2
+    },
+    {
+      "id": "g9",
+      "boardId": "b4",
+      "name": "לפני ההשקה",
+      "color": "#B4532A",
+      "order": 0
+    },
+    {
+      "id": "g10",
+      "boardId": "b4",
+      "name": "שבוע ההשקה",
+      "color": "#DC2626",
+      "order": 1
+    },
+    {
+      "id": "g11",
+      "boardId": "b4",
+      "name": "אחרי ההשקה",
+      "color": "#6B7280",
+      "order": 2
+    },
+    {
+      "id": "g12",
+      "boardId": "b5",
+      "name": "עדכוני אתר",
+      "color": "#B4532A",
+      "order": 0
+    },
+    {
+      "id": "g13",
+      "boardId": "b5",
+      "name": "תוכן חודשי",
+      "color": "#7C3AED",
+      "order": 1
+    }
+  ],
+  "items": [
+    {
+      "id": "i1",
+      "groupId": "g1",
+      "title": "גיוס מפתח/ת Full Stack",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-20",
+      "priority": "High",
+      "order": 0
+    },
+    {
+      "id": "i2",
+      "groupId": "g1",
+      "title": "פרסום משרת מעצב/ת UX/UI",
+      "status": "Todo",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-25",
+      "priority": "Medium",
+      "order": 1
+    },
+    {
+      "id": "i3",
+      "groupId": "g1",
+      "title": "עדכון מודעת דרושים לתפקיד QA",
+      "status": "Todo",
+      "assigneeIds": [],
+      "order": 2
+    },
+    {
+      "id": "i4",
+      "groupId": "g2",
+      "title": "ראיון שני - מועמדת לתפקיד QA",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-10",
+      "priority": "High",
+      "notes": "המועמדת הגיעה מומלצת מאוד מצוות הפיתוח.",
+      "order": 0
+    },
+    {
+      "id": "i5",
+      "groupId": "g2",
+      "title": "בדיקת רפרנסים - מועמד Full Stack",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-01",
+      "priority": "Medium",
+      "order": 1
+    },
+    {
+      "id": "i6",
+      "groupId": "g2",
+      "title": "ריאיון ראשון - מנהל/ת מוצר",
+      "status": "Todo",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-08-28",
+      "priority": "High",
+      "order": 2
+    },
+    {
+      "id": "i7",
+      "groupId": "g3",
+      "title": "סגירת משרת רכז/ת שיווק תוכן",
+      "status": "Done",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-08-15",
+      "order": 0
+    },
+    {
+      "id": "i8",
+      "groupId": "g3",
+      "title": "קליטת מועמד שנבחר לתפקיד Backend",
+      "status": "Done",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-08-05",
+      "priority": "Low",
+      "notes": "המועמד יתחיל לעבוד בתחילת אוקטובר.",
+      "order": 1
+    },
+    {
+      "id": "i9",
+      "groupId": "g4",
+      "title": "בניית תוכנית הכשרה לעובד/ת חדש/ה",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u2",
+        "u3"
+      ],
+      "dueDate": "2026-09-15",
+      "priority": "High",
+      "notes": "התוכנית תשולב גם בפורטל העובדים.",
+      "order": 0
+    },
+    {
+      "id": "i10",
+      "groupId": "g4",
+      "title": "עדכון תקנון עובדים",
+      "status": "Todo",
+      "assigneeIds": [
+        "u2"
+      ],
+      "priority": "Medium",
+      "order": 1
+    },
+    {
+      "id": "i11",
+      "groupId": "g4",
+      "title": "הכנת ערכת קליטה דיגיטלית",
+      "status": "Done",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-08-20",
+      "priority": "Low",
+      "order": 2
+    },
+    {
+      "id": "i12",
+      "groupId": "g4",
+      "title": "ריאיון קליטה עם עובד/ת חדש/ה במחלקת הנדסה",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u2"
+      ],
+      "dueDate": "2026-09-05",
+      "priority": "Medium",
+      "notes": "ממתינים לאישור מנהל המחלקה לתיאום מועד.",
+      "order": 3
+    },
+    {
+      "id": "i13",
+      "groupId": "g5",
+      "title": "תכנון יום גיבוש חצי שנתי",
+      "status": "Todo",
+      "assigneeIds": [
+        "u2",
+        "u3"
+      ],
+      "dueDate": "2026-11-10",
+      "order": 0
+    },
+    {
+      "id": "i14",
+      "groupId": "g5",
+      "title": "עדכון תפריט ארוחות הצהריים",
+      "status": "Todo",
+      "assigneeIds": [],
+      "order": 1
+    },
+    {
+      "id": "i15",
+      "groupId": "g5",
+      "title": "סקר שביעות רצון עובדים",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u2"
+      ],
+      "dueDate": "2026-09-12",
+      "priority": "High",
+      "order": 2
+    },
+    {
+      "id": "i16",
+      "groupId": "g5",
+      "title": "סיכום תקציב רווחה לרבעון 3",
+      "status": "Done",
+      "assigneeIds": [
+        "u2"
+      ],
+      "dueDate": "2026-08-10",
+      "notes": "התקציב נוצל במלואו, מומלץ להגדיל לרבעון הבא.",
+      "order": 3
+    },
+    {
+      "id": "i17",
+      "groupId": "g6",
+      "title": "סיכום תקציב רבעון 3",
+      "status": "Done",
+      "assigneeIds": [
+        "u1"
+      ],
+      "dueDate": "2026-08-31",
+      "priority": "High",
+      "notes": "הדוח הועבר לדירקטוריון ואושר.",
+      "order": 0
+    },
+    {
+      "id": "i18",
+      "groupId": "g6",
+      "title": "בחינת יעדי גיוס לקוחות רבעון 3",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u1",
+        "u4"
+      ],
+      "dueDate": "2026-08-25",
+      "priority": "Critical",
+      "notes": "היעד לא הושג בשל עיכוב בהשקת הקמפיין.",
+      "order": 1
+    },
+    {
+      "id": "i19",
+      "groupId": "g6",
+      "title": "עדכון דוח ביצועים לרבעון 3 להנהלה",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u1"
+      ],
+      "dueDate": "2026-09-09",
+      "priority": "High",
+      "order": 2
+    },
+    {
+      "id": "i20",
+      "groupId": "g7",
+      "title": "גיבוש תקציב שנתי לרבעון 4",
+      "status": "Todo",
+      "assigneeIds": [
+        "u1",
+        "u2"
+      ],
+      "dueDate": "2026-10-15",
+      "priority": "High",
+      "order": 0
+    },
+    {
+      "id": "i21",
+      "groupId": "g7",
+      "title": "תכנון מבנה ארגוני מעודכן",
+      "status": "Todo",
+      "assigneeIds": [
+        "u1"
+      ],
+      "priority": "Medium",
+      "order": 1
+    },
+    {
+      "id": "i22",
+      "groupId": "g7",
+      "title": "הגדרת יעדי גיוס עובדים לרבעון 4",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u1",
+        "u3"
+      ],
+      "dueDate": "2026-09-30",
+      "priority": "Medium",
+      "order": 2
+    },
+    {
+      "id": "i23",
+      "groupId": "g8",
+      "title": "בניית תוכנית אסטרטגית רב שנתית",
+      "status": "Todo",
+      "assigneeIds": [
+        "u1"
+      ],
+      "order": 0
+    },
+    {
+      "id": "i24",
+      "groupId": "g8",
+      "title": "מעקב אחר יעדי ESG ארגוניים",
+      "status": "Done",
+      "assigneeIds": [
+        "u1",
+        "u4"
+      ],
+      "dueDate": "2026-08-05",
+      "priority": "Low",
+      "order": 1
+    },
+    {
+      "id": "i25",
+      "groupId": "g9",
+      "title": "עיצוב באנרים לרשתות חברתיות",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-11",
+      "priority": "High",
+      "notes": "יש להתאים 3 גדלים שונים לכל פלטפורמה.",
+      "order": 0
+    },
+    {
+      "id": "i26",
+      "groupId": "g9",
+      "title": "כתיבת דף נחיתה לקמפיין",
+      "status": "Todo",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-18",
+      "priority": "High",
+      "order": 1
+    },
+    {
+      "id": "i27",
+      "groupId": "g9",
+      "title": "תיאום עם סוכנות מדיה חיצונית",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-30",
+      "priority": "Critical",
+      "notes": "הסוכנות טרם אישרה את לוח הזמנים המעודכן.",
+      "order": 2
+    },
+    {
+      "id": "i28",
+      "groupId": "g9",
+      "title": "אישור תקציב פרסום דיגיטלי",
+      "status": "Done",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-12",
+      "priority": "High",
+      "order": 3
+    },
+    {
+      "id": "i29",
+      "groupId": "g10",
+      "title": "שיגור קמפיין ברשתות החברתיות",
+      "status": "Todo",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-22",
+      "priority": "Medium",
+      "order": 0
+    },
+    {
+      "id": "i30",
+      "groupId": "g10",
+      "title": "מעקב יומי אחרי ביצועי המודעות",
+      "status": "Todo",
+      "assigneeIds": [],
+      "order": 1
+    },
+    {
+      "id": "i31",
+      "groupId": "g11",
+      "title": "ניתוח תוצאות הקמפיין וכתיבת דוח מסכם",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-10-05",
+      "priority": "Medium",
+      "order": 0
+    },
+    {
+      "id": "i32",
+      "groupId": "g11",
+      "title": "תחקיר לקחים לקמפיין הבא",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u4"
+      ],
+      "order": 1
+    },
+    {
+      "id": "i33",
+      "groupId": "g12",
+      "title": "שדרוג עמוד הבית באתר החברה",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-25",
+      "priority": "High",
+      "notes": "העיצוב החדש נמצא בבדיקת UX.",
+      "order": 0
+    },
+    {
+      "id": "i34",
+      "groupId": "g12",
+      "title": "תיקון תקלות תצוגה בדפדפן Safari",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-22",
+      "priority": "Critical",
+      "order": 1
+    },
+    {
+      "id": "i35",
+      "groupId": "g12",
+      "title": "שיפור מהירות טעינת האתר",
+      "status": "Todo",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-10-10",
+      "priority": "Medium",
+      "notes": "נדרש דחיסת תמונות והטמעת CDN.",
+      "order": 2
+    },
+    {
+      "id": "i36",
+      "groupId": "g12",
+      "title": "בדיקת נגישות לאתר בהתאם לתקן",
+      "status": "Done",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-18",
+      "priority": "Low",
+      "order": 3
+    },
+    {
+      "id": "i37",
+      "groupId": "g13",
+      "title": "כתיבת פוסט חודשי לבלוג החברה",
+      "status": "Todo",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-14",
+      "priority": "Medium",
+      "order": 0
+    },
+    {
+      "id": "i38",
+      "groupId": "g13",
+      "title": "עדכון לוח תכנים לרבעון הבא",
+      "status": "Todo",
+      "assigneeIds": [],
+      "order": 1
+    },
+    {
+      "id": "i39",
+      "groupId": "g13",
+      "title": "הפקת סרטון תדמית קצר",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-11-05",
+      "priority": "High",
+      "order": 2
+    },
+    {
+      "id": "i40",
+      "groupId": "g13",
+      "title": "עדכון גלריית תמונות באתר",
+      "status": "Done",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-08",
+      "order": 3
+    }
+  ],
+  "subItems": [
+    {
+      "id": "s1",
+      "itemId": "i1",
+      "title": "כתיבת מודעת המשרה בשפה מעודכנת",
+      "status": "Done",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-08-25",
+      "order": 0
+    },
+    {
+      "id": "s2",
+      "itemId": "i1",
+      "title": "פרסום המשרה בלינקדאין ובאתר החברה",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-12",
+      "order": 1
+    },
+    {
+      "id": "s3",
+      "itemId": "i4",
+      "title": "תיאום ראיון עם מנהל הפיתוח",
+      "status": "Done",
+      "assigneeIds": [
+        "u3"
+      ],
+      "dueDate": "2026-09-05",
+      "order": 0
+    },
+    {
+      "id": "s4",
+      "itemId": "i9",
+      "title": "הכנת מצגת הכשרה למחלקת הנדסה",
+      "status": "InProgress",
+      "assigneeIds": [
+        "u2"
+      ],
+      "dueDate": "2026-09-16",
+      "order": 0
+    },
+    {
+      "id": "s5",
+      "itemId": "i9",
+      "title": "תיאום מדריך חיצוני להכשרה",
+      "status": "Todo",
+      "assigneeIds": [
+        "u3"
+      ],
+      "order": 1
+    },
+    {
+      "id": "s6",
+      "itemId": "i18",
+      "title": "איסוף נתוני גיוס לקוחות מהצוותים",
+      "status": "Done",
+      "assigneeIds": [
+        "u1"
+      ],
+      "dueDate": "2026-08-20",
+      "order": 0
+    },
+    {
+      "id": "s7",
+      "itemId": "i20",
+      "title": "קבלת אומדן תקציב ממחלקת הכספים",
+      "status": "Todo",
+      "assigneeIds": [
+        "u2"
+      ],
+      "dueDate": "2026-09-25",
+      "order": 0
+    },
+    {
+      "id": "s8",
+      "itemId": "i25",
+      "title": "בחירת פלטת צבעים לקמפיין",
+      "status": "Done",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-28",
+      "order": 0
+    },
+    {
+      "id": "s9",
+      "itemId": "i27",
+      "title": "קבלת הצעת מחיר מהסוכנות",
+      "status": "Stuck",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-08-27",
+      "order": 1
+    },
+    {
+      "id": "s10",
+      "itemId": "i33",
+      "title": "בדיקת תאימות לדפדפנים ניידים",
+      "status": "Todo",
+      "assigneeIds": [
+        "u4"
+      ],
+      "dueDate": "2026-09-20",
+      "order": 0
+    }
+  ],
+  "updates": [
+    {
+      "id": "upd1",
+      "itemId": "i1",
+      "authorUserId": "u3",
+      "text": "פרסמנו את המשרה בלינקדאין ובאתר החברה, כבר מתקבלות פניות ראשונות.",
+      "createdAt": "2026-08-20T09:00:00Z"
+    },
+    {
+      "id": "upd2",
+      "itemId": "i1",
+      "authorUserId": "u2",
+      "text": "בואי נוודא שהמשרה מותאמת גם לדרישות השכר החדשות שאישרנו.",
+      "createdAt": "2026-08-22T14:30:00Z"
+    },
+    {
+      "id": "upd3",
+      "itemId": "i2",
+      "authorUserId": "u1",
+      "text": "חשוב לסגור את המשרה הזו עד סוף הרבעון.",
+      "createdAt": "2026-08-25T10:15:00Z"
+    },
+    {
+      "id": "upd4",
+      "itemId": "i9",
+      "authorUserId": "u2",
+      "text": "התוכנית ההכשרה מתעדכנת בהתאם למשוב מהעובדים החדשים.",
+      "createdAt": "2026-08-18T11:00:00Z"
+    },
+    {
+      "id": "upd5",
+      "itemId": "i9",
+      "authorUserId": "u1",
+      "text": "כדאי לשלב גם הדרכה על תרבות ארגונית בתוכנית.",
+      "createdAt": "2026-08-19T08:45:00Z"
+    },
+    {
+      "id": "upd6",
+      "itemId": "i11",
+      "authorUserId": "u2",
+      "text": "ערכת הקליטה הדיגיטלית מוכנה ונשלחת לכל עובד חדש.",
+      "createdAt": "2026-09-01T13:20:00Z"
+    },
+    {
+      "id": "upd7",
+      "itemId": "i17",
+      "authorUserId": "u1",
+      "text": "התקציב אושר בישיבת ההנהלה.",
+      "createdAt": "2026-08-16T09:30:00Z"
+    },
+    {
+      "id": "upd8",
+      "itemId": "i18",
+      "authorUserId": "u1",
+      "text": "נדרשת בדיקה מעמיקה של הסיבות לפיגור ביעד.",
+      "createdAt": "2026-08-30T15:00:00Z"
+    },
+    {
+      "id": "upd9",
+      "itemId": "i18",
+      "authorUserId": "u1",
+      "text": "קבענו ישיבת חירום עם צוות השיווק לשבוע הבא.",
+      "createdAt": "2026-09-02T10:00:00Z"
+    },
+    {
+      "id": "upd10",
+      "itemId": "i25",
+      "authorUserId": "u4",
+      "text": "הבאנרים בעיצוב ראשוני, ממתינים למשוב ממחלקת המותג.",
+      "createdAt": "2026-08-21T12:00:00Z"
+    },
+    {
+      "id": "upd11",
+      "itemId": "i27",
+      "authorUserId": "u4",
+      "text": "עדיין ממתינים לאישור לוח הזמנים מהסוכנות.",
+      "createdAt": "2026-09-05T09:15:00Z"
+    },
+    {
+      "id": "upd12",
+      "itemId": "i27",
+      "authorUserId": "u1",
+      "text": "אם אין תשובה עד מחר נעבור לספק חלופי.",
+      "createdAt": "2026-09-06T16:40:00Z"
+    },
+    {
+      "id": "upd13",
+      "itemId": "i33",
+      "authorUserId": "u4",
+      "text": "העיצוב החדש נמצא בבדיקת חוויית משתמש.",
+      "createdAt": "2026-08-28T11:30:00Z"
+    },
+    {
+      "id": "upd14",
+      "itemId": "i33",
+      "authorUserId": "u4",
+      "text": "צפויה גרסת בטא לאתר בתחילת השבוע הבא.",
+      "createdAt": "2026-09-03T14:00:00Z"
+    }
+  ],
+  "dashboards": [
+    {
+      "id": "d1",
+      "name": "דשבורד ארגוני",
+      "description": "תמונת מצב של כלל הארגון",
+      "ownerUserId": "u1",
+      "sourceBoardIds": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    {
+      "id": "d2",
+      "name": "דשבורד משאבי אנוש",
+      "description": "גיוס, קליטה ורווחה במבט אחד",
+      "ownerUserId": "u2",
+      "sourceBoardIds": [
+        "b1",
+        "b2"
+      ]
+    }
+  ],
+  "attachments": [
+    {
+      "id": "att1",
+      "itemId": "i22",
+      "fileName": "יעדי גיוס רבעון 4 - טיוטה.txt",
+      "contentType": "text/plain",
+      "file": "q4-hiring-goals.txt",
+      "uploadedByUserId": "u1",
+      "uploadedAt": "2026-09-01T08:30:00Z"
+    },
+    {
+      "id": "att2",
+      "itemId": "i22",
+      "fileName": "תבנית ראיון מובנה.txt",
+      "contentType": "text/plain",
+      "file": "interview-template.txt",
+      "uploadedByUserId": "u1",
+      "uploadedAt": "2026-09-02T10:15:00Z"
+    },
+    {
+      "id": "att3",
+      "itemId": "i9",
+      "fileName": "תוכנית הכשרה - שבוע ראשון.txt",
+      "contentType": "text/plain",
+      "file": "onboarding-week-one.txt",
+      "uploadedByUserId": "u2",
+      "uploadedAt": "2026-09-03T12:00:00Z"
+    }
+  ]
+}
